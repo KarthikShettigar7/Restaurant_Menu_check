@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uttam Punjabi Dhaba — test</title>
+<style>
+  body { margin:0; padding:32px 20px; background:#17100b; color:#f7eee0;
+         font:16px/1.6 -apple-system, system-ui, sans-serif; }
+  .wrap { max-width: 420px; margin: 0 auto; text-align: center; }
+  h1 { font-size: 22px; margin: 0 0 10px; }
+  p.lede { color:#a08d76; font-size: 14px; margin: 0 0 28px; }
+  a.btn {
+    display:block; text-decoration:none; margin-bottom:14px;
+    padding:15px 20px; border-radius:14px; font-weight:700; font-size:15px;
+  }
+  .primary { background:#f0a93b; color:#17100b; }
+  .secondary { background:#261a13; color:#f7eee0; border:1px solid #3d2b20; }
+  .sub { display:block; font-weight:400; font-size:12px; opacity:.7; margin-top:3px; }
+  .proof { margin-top:26px; padding:16px; background:#261a13; border-radius:12px;
+           font-size: 13px; text-align:left; color:#d8c6ac; }
+  .proof b { color:#f0a93b; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🍽️ Uttam Punjabi Dhaba</h1>
+    <p class="lede">You scanned the QR. Choose what happens next:</p>
+
+    <a class="btn primary" href="pwa-test.html">
+      Open now
+      <span class="sub">Views the page immediately, nothing saved</span>
+    </a>
+
+    <a class="btn secondary" href="pwa-test.html" download="uttam-dhaba-test.html">
+      ⬇ Download a copy
+      <span class="sub">Saves the file to your phone to open later</span>
+    </a>
+
+    <div class="proof">
+      <b>Note:</b> both buttons needed this landing page to load first, which
+      needed a network connection once. That part can't be skipped — a QR
+      code is a picture of a link, and a link always has to be fetched from
+      somewhere the first time.
+    </div>
+  </div>
+</body>
+</html>

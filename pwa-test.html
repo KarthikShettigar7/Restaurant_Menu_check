@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scan-and-cache test</title>
+<style>
+  body { margin:0; padding:28px 20px; background:#17100b; color:#f7eee0;
+         font:16px/1.6 -apple-system, system-ui, sans-serif; }
+  .wrap { max-width: 480px; margin: 0 auto; text-align: center; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .badge { display:inline-block; margin-top:18px; padding:10px 20px;
+           border-radius: 99px; font-weight: 700; font-size: 14px; }
+  .on  { background: #f0a93b; color: #17100b; }
+  .off { background: #3f9a4f; color: #fff; }
+  p { color: #a08d76; font-size: 14px; margin-top:22px; }
+  .proof { margin-top:26px; padding:16px; background:#261a13; border-radius:12px;
+           font-size: 13.5px; text-align:left; }
+  .proof b { color:#f0a93b; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🍽️ Scan-and-cache test</h1>
+    <div id="badge" class="badge">checking…</div>
+    <div class="proof">
+      <p><b>What just happened:</b> the first time this page is opened, a tiny
+      background script quietly saves a copy of it on your phone.</p>
+      <p><b>Try it:</b> turn on Airplane Mode, then scan the same QR code again.
+      It will still open — this time from the saved copy, not from GitHub.</p>
+      <p><b>The real limit, unchanged:</b> this only works because this page
+      never needs to <em>send</em> anything anywhere. A real order still has
+      to reach a screen in the kitchen, on a different device — that trip
+      always needs a live connection, no matter how this page is cached.</p>
+    </div>
+  </div>
+
+  <script>
+    var badge = document.getElementById('badge');
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('pwa-sw.js').then(function (reg) {
+        reg.addEventListener('updatefound', function () {
+          var worker = reg.installing;
+          worker.addEventListener('statechange', function () {
+            if (worker.state === 'activated') paint();
+          });
+        });
+      }).catch(function () { /* caching is a bonus, not required */ });
+    }
+
+    function paint() {
+      if (navigator.serviceWorker.controller) {
+        badge.textContent = 'Saved on this phone — will open with no internet now';
+        badge.className = 'badge off';
+      } else {
+        badge.textContent = 'First visit — saving a copy now…';
+        badge.className = 'badge on';
+      }
+    }
+    paint();
+  </script>
+</body>
+</html>
