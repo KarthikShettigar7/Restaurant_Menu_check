@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Offline test</title>
+<style>
+  /* Every style is inline in this file. Nothing is fetched from anywhere. */
+  body { margin:0; padding:28px 20px; background:#17100b; color:#f7eee0;
+         font:16px/1.6 -apple-system, system-ui, sans-serif; }
+  .wrap { max-width: 480px; margin: 0 auto; text-align: center; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .badge { display:inline-block; margin-top:18px; padding:10px 20px;
+           border-radius: 99px; font-weight: 700; font-size: 14px; }
+  .on  { background: #3f9a4f; color: #fff; }
+  .off { background: #b8391a; color: #fff; }
+  p { color: #a08d76; font-size: 14px; margin-top:22px; }
+  .proof { margin-top:26px; padding:16px; background:#261a13; border-radius:12px;
+           font-size: 13.5px; text-align:left; }
+  .proof b { color:#f0a93b; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🍽️ This page opened with no internet</h1>
+    <div id="badge" class="badge">checking…</div>
+    <div class="proof">
+      <p><b>Why this worked:</b> this file has no server to contact. The HTML,
+      CSS and JavaScript are all inside this one file — there was nothing to
+      download when it opened.</p>
+      <p><b>Why your restaurant menu can't do this:</b> it needs to send each
+      order to a screen the kitchen is watching, on a different device. That
+      trip across devices always needs a network — a QR code or a file can't
+      avoid it, because the food itself has to actually reach a person.</p>
+    </div>
+    <p>Sent this file to someone? Ask them to turn on Airplane Mode <em>before</em>
+    opening it, then check the badge above still says "No internet — and it
+    still opened."</p>
+  </div>
+
+  <script>
+    // No fetch, no external script - this only reports what the browser
+    // already knows about the connection, to make the point visible.
+    function paint() {
+      var badge = document.getElementById('badge');
+      if (navigator.onLine) {
+        badge.textContent = 'Your phone has a connection right now — but this page did not use it';
+        badge.className = 'badge on';
+      } else {
+        badge.textContent = 'No internet — and it still opened';
+        badge.className = 'badge off';
+      }
+    }
+    paint();
+    window.addEventListener('online', paint);
+    window.addEventListener('offline', paint);
+  </script>
+</body>
+</html>
